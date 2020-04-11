@@ -3,7 +3,6 @@ package com.example.psihology;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
-
-import java.util.ArrayList;
 
 public class ClientEditForm extends AppCompatActivity {
 
@@ -41,11 +38,11 @@ public class ClientEditForm extends AppCompatActivity {
         Slidr.attach(this);
 
         initView();
-        buttons();
+        setButtonsListener();
 
     }
 
-    void buttons()
+    void setButtonsListener()
     {
         Intent intent = getIntent();
         String clientJson = intent.getStringExtra("json");

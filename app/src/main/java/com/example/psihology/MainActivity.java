@@ -12,9 +12,9 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonToEditForm;
+
     private Button buttonToClientListForm;
-    private Button methodsTerapy;
+    private Button buttonToRecordListForm;
 
     private SlidrInterface slidr;
 
@@ -23,21 +23,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonToEditForm = (Button) findViewById(R.id.addAnketBt);
+
         buttonToClientListForm = (Button) findViewById(R.id.watchAnketBt);
-        methodsTerapy = (Button) findViewById(R.id.metodsBt);
+        buttonToRecordListForm = (Button) findViewById(R.id.recordListBt);
 
         slidr = Slidr.attach(this);
 
-        buttonToEditForm.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent("com.example.psihology.ClientEditForm");
-                        startActivity(intent);
-                    }
-                }
-        );
+
 
         buttonToClientListForm.setOnClickListener(
                 new View.OnClickListener() {
@@ -48,5 +40,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        buttonToRecordListForm.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("com.example.psihology.RecordListForm");
+                        startActivity(intent);
+                    }
+                }
+        );
     }
+
 }

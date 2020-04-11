@@ -4,33 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientListForm">
+    tools:context=".RecordListForm">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="431dp"
         android:layout_margin="15dp">
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:id="@+id/addClientBt"
-            android:text="Добавить запись"
-            android:layout_marginTop="5dp"/>
+            android:text="add meeting"
+            android:backgroundTint="#FF0000"
+            android:id="@+id/addMeetingBt">
 
+        </Button>
 
         <ListView
-            android:id="@+id/listActiv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#FFFFFF"
-            tools:ignore="MissingConstraints" />
+            android:id="@+id/listRecord" />
 
     </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
