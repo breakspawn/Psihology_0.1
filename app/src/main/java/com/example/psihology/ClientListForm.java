@@ -79,6 +79,7 @@ public class ClientListForm extends AppCompatActivity {
                             intent.putExtra("id", idClient);
                             startActivity(intent);
                             onResume();
+
                         }
                         catch (NullPointerException npe)
                         {

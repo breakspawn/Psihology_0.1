@@ -14,19 +14,23 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="431dp"
         android:layout_margin="15dp">
+
         <Button
+            android:id="@+id/addMeetingBt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="add meeting"
             android:backgroundTint="#FF0000"
-            android:id="@+id/addMeetingBt">
+            android:text="add meeting"/>
 
-        </Button>
 
         <ListView
+            android:id="@+id/listRecord"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listRecord" />
+            android:layout_height="match_parent">
+
+
+        </ListView>
+
 
     </LinearLayout>
 
