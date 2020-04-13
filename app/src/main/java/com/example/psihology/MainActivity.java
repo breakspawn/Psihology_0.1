@@ -24,12 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("Архив"));
-        tabs.addTab(tabs.newTab().setText("График"));
-        tabs.addTab(tabs.newTab().setText("Заметки"));
-
-
         buttonToClientListForm = (Button) findViewById(R.id.watchAnketBt);
         buttonToRecordListForm = (Button) findViewById(R.id.recordListBt);
 
