@@ -2,6 +2,7 @@ package com.example.psihology;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class ClientEditForm extends AppCompatActivity {
     private Button saveButton;
     private Button deleteButton;
 
+
     private TextInputLayout nameEdit;
     private TextInputLayout ageEdit;
     private TextInputLayout phoneEdit;
@@ -25,6 +27,7 @@ public class ClientEditForm extends AppCompatActivity {
     private TextInputLayout queryEdit;
     private TextInputLayout noteEdit;
     private TextInputLayout anamnesisEdit;
+    Button meetingButton;
 
 
     private SlidrInterface sliderBack;
@@ -40,6 +43,8 @@ public class ClientEditForm extends AppCompatActivity {
         initView();
         setButtonsListener();
 
+
+
     }
 
     void setButtonsListener()
@@ -50,6 +55,7 @@ public class ClientEditForm extends AppCompatActivity {
         // если нет переданного клиента - режим добавления нового клиента
         if(clientJson == null) {
             deleteButton.setVisibility(View.INVISIBLE);
+            meetingButton.setVisibility(View.INVISIBLE);
             saveButton.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -109,6 +115,17 @@ public class ClientEditForm extends AppCompatActivity {
                     }
             );
 
+            meetingButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent("com.example.psihology.MeetingEditForm");
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+                        }
+                    }
+            );
+
         }
 
     }
@@ -125,6 +142,7 @@ public class ClientEditForm extends AppCompatActivity {
         noteEdit = (TextInputLayout) findViewById(R.id.editTextNote);
         anamnesisEdit = (TextInputLayout) findViewById(R.id.editTextAnamnez);
         sliderBack = Slidr.attach(this);
+        meetingButton = (Button)findViewById(R.id.MeetingButton);
 
     }
 

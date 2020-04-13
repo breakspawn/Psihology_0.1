@@ -2,6 +2,8 @@ package com.example.psihology;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Meeting {
@@ -14,7 +16,14 @@ public class Meeting {
         dateOfMeeting = new DateKeeper(millis);
     }
 
-    public Meeting() { }
+    public Meeting(LocalDateTime dt)
+    {
+
+    }
+    public Meeting()
+    {
+
+    }
 
     public Meeting(String json)
     {
@@ -31,6 +40,14 @@ public class Meeting {
         return json;
     }
 
+    public String getDateString()
+    {
+        Date date = new Date(System.currentTimeMillis() / 1000);
+        SimpleDateFormat fmt = new SimpleDateFormat("MM dd, yy HH:mm");
+        String result = fmt.format(date);
+        return result;
+    }
+
 }
 
 class DateKeeper
@@ -41,13 +58,7 @@ class DateKeeper
         secsOfUnixTime = System.currentTimeMillis()/1000;
     }
 
-    public String getDateString()
-    {
-        Date date = new Date(System.currentTimeMillis() / 1000);
-        SimpleDateFormat fmt = new SimpleDateFormat("MM dd, yy HH:mm");
-        String result = fmt.format(date);
-        return result;
-    }
+
 
     public long getSecsUnixTime()
     {

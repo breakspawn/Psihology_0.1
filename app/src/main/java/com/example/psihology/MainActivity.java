@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         slidr = Slidr.attach(this);
 
-
-
         buttonToClientListForm.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

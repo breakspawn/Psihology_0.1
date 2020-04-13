@@ -186,6 +186,17 @@
             android:text="Сохранить"
             android:textColor="#000000" />
     </LinearLayout>
+        <Button
+            android:id="@+id/MeetingButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:fontFamily="@font/sanfrancisco"
+            android:text="добавить в график"
+            android:textColor="#000000" />
 
 
     </LinearLayout>
