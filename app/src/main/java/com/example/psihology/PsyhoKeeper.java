@@ -10,7 +10,10 @@ public class PsyhoKeeper
 {
     private static ArrayList<Pair<Integer, Client>> allClients;
     private static ArrayList<Pair<Integer, Meeting>> allMeetings;
-
+    enum Sort {
+        LITTLE_ENDIAN,
+        BIG_ENDIAN,
+    }
     public PsyhoKeeper(Context context)
     {
         DataBaseWorker dw = new DataBaseWorker(context);
@@ -24,19 +27,82 @@ public class PsyhoKeeper
     }
     public ArrayList<Pair<Integer, Meeting>> getMeetingsWhere(Meeting template) { return null; }
 
-    public ArrayList<Pair<Integer, Client>> getAllClients()
+    public static ArrayList<Pair<Integer, Client>> getAllClients()
     {
         return allClients;
     }
-    public ArrayList<Pair<Integer, Meeting>> getAllMeetings() {return  allMeetings;}
+    public static ArrayList<Pair<Integer, Meeting>> getAllMeetings(Sort sortingClass)
+    {
+        ArrayList<Pair<Integer, Meeting>> result = allMeetings;
+        boolean isSorted = false;
+        while(!isSorted)
+        {
+            for(int i = 0; i < result.size(); i++)
+            {
+                if(i == result.size()-1) {
+                    isSorted = true;
+                    break;
+                }
 
-    public Client getClientById(int id){
+                Meeting m = result.get(i).second;
+                Meeting next = result.get(i+1).second;
+                boolean needSwap = false;
+                if(sortingClass == Sort.LITTLE_ENDIAN && m.getDate().after(next.getDate()))
+                    needSwap = true;
+                else if (sortingClass == Sort.BIG_ENDIAN && m.getDate().before(next.getDate()))
+                    needSwap = true;
+
+                if(needSwap)
+                {
+                    Pair<Integer,Meeting> temp = result.get(i+1);
+                    result.set(i + 1, result.get(i));
+                    result.set(i, temp);
+                    break;
+                }
+            }
+        }
+
+        return sortMeetingByTime(result, sortingClass);
+    }
+
+    private static ArrayList<Pair<Integer, Meeting>> sortMeetingByTime(ArrayList<Pair<Integer, Meeting>> collection, Sort sortingClass){
+        boolean isSorted = false;
+        while (!isSorted) {
+            for (int i = 0; i < collection.size(); i++) {
+                if (i == collection.size()-1) {
+                    isSorted = true;
+                    break;
+                }
+                Meeting m = collection.get(i).second;
+                Meeting next = collection.get(i + 1).second;
+                boolean needSwap = false;
+                if (sortingClass == Sort.LITTLE_ENDIAN && m.getTime().after(next.getTime()) && m.getDate().equals(next.getDate()))
+                    needSwap = true;
+                else if (sortingClass == Sort.BIG_ENDIAN && m.getTime().before(next.getTime()) && m.getDate().equals(next.getDate()))
+                    needSwap = true;
+
+                if (needSwap) {
+                    Pair<Integer, Meeting> temp = collection.get(i + 1);
+                    collection.set(i + 1, collection.get(i));
+                    collection.set(i, temp);
+                    break;
+                }
+            }
+        }
+
+        return collection;
+    }
+
+
+
+    public static Client getClientById(int id){
         for (Pair<Integer,Client> c: allClients) {
             if(c.first == id)
                 return c.second;
         }
         return new Client();
     }
+
 
 
 }

@@ -35,9 +35,11 @@
 
             <Button
                 android:id="@+id/TimeBt"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginRight="7dp"
                 android:layout_weight="0.1"
                 android:padding="0dp"
@@ -55,10 +57,12 @@
 
             <Button
                 android:id="@+id/DateBt"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:textColor="#000000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="14dp"
                 android:layout_weight="0.1"
                 android:padding="0dp"
                 android:text="..."
@@ -74,6 +78,8 @@
 
         <Button
             android:id="@+id/writeMeeting"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textColor="#000000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Записать" />

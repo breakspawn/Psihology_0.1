@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,9 +14,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialCalendar;
 import com.google.android.material.datepicker.MaterialDatePicker;
+
+import java.sql.Date;
+import java.sql.Time;
 
 public class MeetingEditForm extends AppCompatActivity {
 
@@ -30,14 +35,6 @@ public class MeetingEditForm extends AppCompatActivity {
     Button writeMeetingBt;
 
     int DIALOG_TIME = 1;
-    int myHour = 14;
-    int myMinute = 35;
-
-    int myDay;
-    int myMonth;
-    int myYear;
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -62,10 +59,8 @@ public class MeetingEditForm extends AppCompatActivity {
             datePickerDialog.setOnDateSetListener( new DatePickerDialog.OnDateSetListener(){
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        myDay = dayOfMonth;
-                        myMonth = month;
-                        myYear = year;
-                        dateText.setText(String.valueOf(myDay) + "/"+ String.valueOf(myMonth)+ "/" + String.valueOf(myYear));
+                        Date d = new Date(year-1900,month,dayOfMonth);
+                        dateText.setText(d.toString());
                     }
                 }
             );
@@ -78,14 +73,15 @@ public class MeetingEditForm extends AppCompatActivity {
                         }
                     }
             );
-            TimePickerDialog.OnTimeSetListener myCallBack = new TimePickerDialog.OnTimeSetListener() {
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                myHour = hourOfDay;
-                myMinute = minute;
-                timeText.setText(String.valueOf(myHour) + ":" + String.valueOf(myMinute));
-            }
-        };
-            final TimePickerDialog tpd = new TimePickerDialog( this, myCallBack, myHour, myMinute, true);
+
+                TimePickerDialog.OnTimeSetListener myCallBack = new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    Time t = new Time(hourOfDay, minute, 0);
+                    String dt = t.toString().substring(0,t.toString().length()-3);
+                    timeText.setText(dt);
+                }
+            };
+            final TimePickerDialog tpd = new TimePickerDialog( this, myCallBack, 12, 0, true);
 
             timeBt.setOnClickListener(
                     new View.OnClickListener() {
@@ -98,8 +94,19 @@ public class MeetingEditForm extends AppCompatActivity {
             writeMeetingBt.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
+                        public void onClick(View v)
+                        {
+                            DataBaseWorker worker = new DataBaseWorker(MeetingEditForm.this);
+                            ContentValues values = new ContentValues();
+                            values.put(worker.F_MEETING_CLIENT_ID, id);
+                            String dt = dateText.getText().toString() + " " + timeText.getText().toString();
+                            values.put(worker.F_DATA_MEETING, dt);
 
+                            if (worker.insert(worker.T_MEETINGS, values))
+                            {
+                                Toast.makeText(MeetingEditForm.this, "Запись добавлена", Toast.LENGTH_LONG).show();
+                            } else
+                                Toast.makeText(MeetingEditForm.this, "Ошибка записи", Toast.LENGTH_LONG).show();
                         }
                     }
             );

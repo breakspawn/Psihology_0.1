@@ -8,7 +8,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
+
 import java.io.IOException;
+import java.lang.annotation.Retention;
 import java.util.ArrayList;
 
 // работа с базой данных
@@ -21,7 +24,10 @@ public class DataBaseWorker
     public final String T_CLIENTS = "clients";
     public final String T_MEETINGS = "meetings";
     public final String F_DATA_CLIENT = "jsonClient";
-    public final String F_DATA_MEETING = "jsonMeeting";
+    public final String F_DATA_MEETING = "dateTime";
+    public final String F_MEETING_CLIENT_ID = "id_client";
+
+
 
 
 
@@ -48,11 +54,11 @@ public class DataBaseWorker
     public ArrayList<Pair<Integer, Meeting>> getAllMeetingsFromDB()
     {
         ArrayList<Pair<Integer, Meeting>> meetings = new ArrayList<Pair<Integer, Meeting>>();
-        Cursor c = db.rawQuery("SELECT " + F_DATA_MEETING + " FROM " + T_MEETINGS, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + T_MEETINGS, null);
         c.moveToFirst();
         while (!c.isAfterLast())
         {
-            Meeting meeting = new Meeting(c.getString(c.getColumnIndex(F_DATA_MEETING)));
+            Meeting meeting = new Meeting(c.getInt(c.getColumnIndex(F_MEETING_CLIENT_ID)),c.getString(c.getColumnIndex(F_DATA_MEETING)));
             meetings.add(new Pair<Integer, Meeting>(c.getInt(0), meeting));
             c.moveToNext();
         }
@@ -96,5 +102,10 @@ public class DataBaseWorker
         ContentValues values = new ContentValues();
         values.put(field, write);
         return db.insert(table,null ,values) > -1;
+    }
+
+    public boolean insert(String table, ContentValues values)
+    {
+        return db.insert(table, null, values) > -1;
     }
 }

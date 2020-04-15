@@ -16,11 +16,13 @@
         android:layout_margin="15dp">
 
         <Button
-            android:id="@+id/addMeetingBt"
+            android:id="@+id/addMeting"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:textColor="#000000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FF0000"
-            android:text="add meeting"/>
+            android:text="Добавить запись" />
+
 
 
         <ListView

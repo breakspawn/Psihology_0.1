@@ -1,67 +1,47 @@
 package com.example.psihology;
-import com.google.gson.Gson;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.sql.Time;
 import java.util.Date;
 
 public class Meeting {
 
-    DateKeeper dateOfMeeting;
-    Client client;
-
-    public Meeting(long millis)
+    String dt = "";
+    int id_client = -1;
+    public Meeting(int t_id, Date d, Time t)
     {
-        dateOfMeeting = new DateKeeper(millis);
+        this(t_id, d.toString() + " " + t.toString());
     }
 
-    public Meeting(LocalDateTime dt)
+    public Meeting(int t_id, String t_dt)
     {
-
-    }
-    public Meeting()
-    {
-
-    }
-
-    public Meeting(String json)
-    {
-        Gson gson = new Gson();
-        Meeting r = gson.fromJson(json, Meeting.class);
-        client = r.client;
-        dateOfMeeting = r.dateOfMeeting;
-    }
-
-    public String toJson()
-    {
-        Gson gson = new Gson();
-        String json = gson.toJson(this);
-        return json;
+        dt = t_dt;
+        id_client = t_id;
     }
 
     public String getDateString()
     {
-        Date date = new Date(System.currentTimeMillis() / 1000);
-        SimpleDateFormat fmt = new SimpleDateFormat("MM dd, yy HH:mm");
-        String result = fmt.format(date);
-        return result;
+        return dt;
     }
 
-}
-
-class DateKeeper
-{
-    long secsOfUnixTime = 0;
-    public DateKeeper(long millis)
+    public Date getDate()
     {
-        secsOfUnixTime = System.currentTimeMillis()/1000;
+        String dateStr = dt.split(" ")[0];
+        return java.sql.Date.valueOf(dateStr);
     }
 
-
-
-    public long getSecsUnixTime()
+    public Time getTime()
     {
-        return secsOfUnixTime;
+        String timeStr = dt.split(" ")[1];
+        timeStr += ":00";
+        return Time.valueOf(timeStr);
     }
+
+    public Client getClient()
+    {
+        return PsyhoKeeper.getClientById(id_client);
+    }
+    public String getClientName()
+    {
+        return PsyhoKeeper.getClientById(id_client).name + "\n" + dt;
+    }
+
 }
