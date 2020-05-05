@@ -122,6 +122,7 @@ public class ClientEditForm extends AppCompatActivity {
                             Intent intent = new Intent("com.example.psihology.MeetingEditForm");
                             intent.putExtra("id", id);
                             startActivity(intent);
+                            finish();
                         }
                     }
             );
@@ -151,7 +152,7 @@ public class ClientEditForm extends AppCompatActivity {
     void setFields(Client c)
      {
          nameEdit.getEditText().setText(c == null? null : c.name);
-         ageEdit.getEditText().setText(c == null? null : String.valueOf(c.age));
+         ageEdit.getEditText().setText(c == null? null : c.age);
          phoneEdit.getEditText().setText(c == null? null : c.phone);
          biographyEdit.getEditText().setText(c == null? null : c.biography);
          queryEdit.getEditText().setText(c == null? null : c.question);
@@ -164,7 +165,7 @@ public class ClientEditForm extends AppCompatActivity {
     {
         Client temp = new Client();
         temp.name = String.valueOf(nameEdit.getEditText().getText());
-        temp.age = Integer.valueOf(ageEdit.getEditText().getText().toString());
+        temp.age = String.valueOf(ageEdit.getEditText().getText());
         temp.phone = String.valueOf(phoneEdit.getEditText().getText());
         temp.biography = String.valueOf(biographyEdit.getEditText().getText());
         temp.question = String.valueOf(queryEdit.getEditText().getText());

@@ -10,6 +10,8 @@ public class PsyhoKeeper
 {
     private static ArrayList<Pair<Integer, Client>> allClients;
     private static ArrayList<Pair<Integer, Meeting>> allMeetings;
+    private static ArrayList<Pair<Integer, Noty>>  allNotyes;
+
     enum Sort {
         LITTLE_ENDIAN,
         BIG_ENDIAN,
@@ -17,20 +19,28 @@ public class PsyhoKeeper
     public PsyhoKeeper(Context context)
     {
         DataBaseWorker dw = new DataBaseWorker(context);
-        allClients =  dw.getAllClientsFromDB();
+        allClients = dw.getAllClientsFromDB();
         allMeetings = dw.getAllMeetingsFromDB();
+        allNotyes = dw.getAllNotifyFromDB();
     }
+
 
     public ArrayList<Pair<Integer, Client>> getClientsWhere(Client template)
     {
         return null;
     }
-    public ArrayList<Pair<Integer, Meeting>> getMeetingsWhere(Meeting template) { return null; }
+    public ArrayList<Pair<Integer, Noty>> getNotyesWhere(Noty template)
+    {
+        return null;
+    }
+    public ArrayList<Pair<Integer, Meeting>> getMeetingsWhere(int template) { return null; }
+
 
     public static ArrayList<Pair<Integer, Client>> getAllClients()
     {
         return allClients;
     }
+    public static ArrayList<Pair<Integer, Noty>> getAllNotyes() { return  allNotyes; }
     public static ArrayList<Pair<Integer, Meeting>> getAllMeetings(Sort sortingClass)
     {
         ArrayList<Pair<Integer, Meeting>> result = allMeetings;
@@ -60,6 +70,7 @@ public class PsyhoKeeper
                     break;
                 }
             }
+            isSorted = true;
         }
 
         return sortMeetingByTime(result, sortingClass);
@@ -87,12 +98,20 @@ public class PsyhoKeeper
                     collection.set(i, temp);
                     break;
                 }
-            }
+            } isSorted = true;
         }
 
         return collection;
     }
 
+    public static Noty getNotifyById(int id)
+    {
+        for (Pair<Integer, Noty> n: allNotyes) {
+            if (n.first == id)
+                return n.second;
+            }
+        return new Noty();
+    }
 
 
     public static Client getClientById(int id){

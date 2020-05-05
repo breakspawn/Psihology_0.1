@@ -105,6 +105,7 @@ public class MeetingEditForm extends AppCompatActivity {
                             if (worker.insert(worker.T_MEETINGS, values))
                             {
                                 Toast.makeText(MeetingEditForm.this, "Запись добавлена", Toast.LENGTH_LONG).show();
+                                finish();
                             } else
                                 Toast.makeText(MeetingEditForm.this, "Ошибка записи", Toast.LENGTH_LONG).show();
                         }

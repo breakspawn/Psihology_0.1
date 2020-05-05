@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 public class Client {
 
     public String name = "";
-    public int age = 0;
+    public String age = "";
     public String phone = "";
     public String biography = "";
     public String question = "";

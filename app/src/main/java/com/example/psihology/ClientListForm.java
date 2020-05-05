@@ -30,6 +30,7 @@ public class ClientListForm extends AppCompatActivity {
     Map<Integer, Integer> posToId;
     PsyhoKeeper keeper;
     Button addClientBt;
+    int pos;
 
     private void updateClients()
     {
@@ -62,6 +63,7 @@ public class ClientListForm extends AppCompatActivity {
                         Intent intent = new Intent("com.example.psihology.ClientEditForm");
                         startActivity(intent);
                         onResume();
+                        finish();
                     }
                 }
         );
@@ -87,6 +89,17 @@ public class ClientListForm extends AppCompatActivity {
                     }
                 }
         );
+
+        listView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        registerForContextMenu(listView);
+                        pos = position;
+                        return false;
+                    }
+                }
+        );
     }
 
     @Override
@@ -94,5 +107,31 @@ public class ClientListForm extends AppCompatActivity {
         super.onResume();
         updateClients();
     }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.deleteMenuButton: {
+                int idFromPos = posToId.get(pos);
+                DataBaseWorker dataBaseWorker = new DataBaseWorker(ClientListForm.this);
+                if(pos >= 0 && dataBaseWorker.delete(dataBaseWorker.T_CLIENTS,idFromPos))
+                {
+                    Toast.makeText(this, "запись удалена", Toast.LENGTH_LONG).show();
+                    onResume();
+                    break;
+                } else
+                    Toast.makeText(this, "ошибка удаления", Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu, menu);
+    }
+
 
 }

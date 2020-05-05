@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button buttonToClientListForm;
     private Button buttonToRecordListForm;
+    private Button buttonToNote;
 
     private SlidrInterface slidr;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonToClientListForm = (Button) findViewById(R.id.watchAnketBt);
         buttonToRecordListForm = (Button) findViewById(R.id.recordListBt);
+        buttonToNote = (Button) findViewById(R.id.notifyBt);
 
         slidr = Slidr.attach(this);
 
@@ -44,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("com.example.psihology.RecordListForm");
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        buttonToNote.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("com.example.psihology.notify");
                         startActivity(intent);
                     }
                 }

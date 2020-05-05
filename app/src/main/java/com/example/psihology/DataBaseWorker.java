@@ -23,9 +23,11 @@ public class DataBaseWorker
 
     public final String T_CLIENTS = "clients";
     public final String T_MEETINGS = "meetings";
+    public final String T_NOTIFY = "notify";
     public final String F_DATA_CLIENT = "jsonClient";
     public final String F_DATA_MEETING = "dateTime";
     public final String F_MEETING_CLIENT_ID = "id_client";
+    public final String F_NOTIFY_TEXT = "txt_notify";
 
 
 
@@ -49,6 +51,24 @@ public class DataBaseWorker
         } catch (IOException mIOException) {
             throw new Error("UnableToUpdateDatabase");
         }
+    }
+
+
+    public ArrayList<Pair<Integer, Noty>> getAllNotifyFromDB()
+    {
+        ArrayList<Pair<Integer, Noty>> notifies = new ArrayList<Pair<Integer, Noty>>();
+        Cursor c = db.rawQuery("SELECT * FROM " + T_NOTIFY, null);
+        c.moveToFirst();
+        while (!c.isAfterLast())
+        {
+            Noty noty = new Noty(c.getString(c.getColumnIndex(F_NOTIFY_TEXT)));
+            int id = c.getInt(0);
+            notifies.add(new Pair<Integer, Noty>(id,noty));
+            c.moveToNext();
+        }
+        c.close();
+
+        return notifies;
     }
 
     public ArrayList<Pair<Integer, Meeting>> getAllMeetingsFromDB()
@@ -84,6 +104,7 @@ public class DataBaseWorker
         return clients;
     }
 
+
     public boolean update (String table, String field, String write, int id)
     {
         ContentValues values = new ContentValues();
@@ -95,7 +116,6 @@ public class DataBaseWorker
     {
        return db.delete(table, "id = ?", new String[]{String.valueOf(id)}) > -1;
     }
-
 
     public boolean insert (String table, String field, String write)
     {
