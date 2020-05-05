@@ -55,7 +55,11 @@ public class ClientListForm extends AppCompatActivity {
         addClientBt = (Button)findViewById(R.id.addClientBt);
         Slidr.attach(this);
         updateClients();
+        initButtons();
+    }
 
+    void initButtons()
+    {
         addClientBt.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

@@ -42,9 +42,6 @@ public class ClientEditForm extends AppCompatActivity {
 
         initView();
         setButtonsListener();
-
-
-
     }
 
     void setButtonsListener()
@@ -68,7 +65,6 @@ public class ClientEditForm extends AppCompatActivity {
                             }
                             else
                                 Toast.makeText(ClientEditForm.this, "Ошибка добавления", Toast.LENGTH_LONG).show();
-
                         }
 
                     }
@@ -126,11 +122,9 @@ public class ClientEditForm extends AppCompatActivity {
                         }
                     }
             );
-
         }
-
     }
-    /// инициализация форм
+     /// инициализация форм
     void initView()
     {
         saveButton = (Button) findViewById(R.id.saveButton);
