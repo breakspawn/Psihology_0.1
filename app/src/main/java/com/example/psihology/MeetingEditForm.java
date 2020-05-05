@@ -96,6 +96,7 @@ public class MeetingEditForm extends AppCompatActivity {
                         @Override
                         public void onClick(View v)
                         {
+                            if (timeText.getText().length() != 0 && dateText.getText().length() != 0){
                             DataBaseWorker worker = new DataBaseWorker(MeetingEditForm.this);
                             ContentValues values = new ContentValues();
                             values.put(worker.F_MEETING_CLIENT_ID, id);
@@ -108,15 +109,10 @@ public class MeetingEditForm extends AppCompatActivity {
                                 finish();
                             } else
                                 Toast.makeText(MeetingEditForm.this, "Ошибка записи", Toast.LENGTH_LONG).show();
+                        }else Toast.makeText(MeetingEditForm.this, "Поля не заполнены", Toast.LENGTH_LONG).show();
                         }
                     }
             );
-
-
-
-
-
-
 
         }
         else finish();

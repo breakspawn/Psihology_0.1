@@ -36,7 +36,11 @@ public class RecordListForm extends AppCompatActivity {
         listMeetings = (ListView) findViewById(R.id.listRecord);
         addMeeting = (Button) findViewById(R.id.addMeting);
         updateMeetingsList();
+        initView();
+    }
 
+    void initView()
+    {
         addMeeting.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -55,6 +59,7 @@ public class RecordListForm extends AppCompatActivity {
                         registerForContextMenu(listMeetings);
                         pos = position;
                         return false;
+
                     }
                 }
         );

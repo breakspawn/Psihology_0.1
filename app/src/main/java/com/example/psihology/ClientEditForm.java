@@ -57,6 +57,7 @@ public class ClientEditForm extends AppCompatActivity {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (nameEdit.getEditText().length() != 0){
                             DataBaseWorker worker = new DataBaseWorker(ClientEditForm.this);
                             if (worker.insert(worker.T_CLIENTS, worker.F_DATA_CLIENT, makeClientFromFields().toJson()))
                             {
@@ -65,6 +66,7 @@ public class ClientEditForm extends AppCompatActivity {
                             }
                             else
                                 Toast.makeText(ClientEditForm.this, "Ошибка добавления", Toast.LENGTH_LONG).show();
+                        } else Toast.makeText(ClientEditForm.this, "Поля не заполнены", Toast.LENGTH_LONG).show();
                         }
 
                     }

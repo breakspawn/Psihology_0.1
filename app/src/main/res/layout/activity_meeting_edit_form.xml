@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="0.4"
-                android:text="Время"
+                android:hint="Время"
+                android:text=""
                 android:textSize="10pt" />
 
             <Button
@@ -52,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="0.4"
-                android:text="Дата"
+                android:hint="Дата"
+                android:text=""
                 android:textSize="10pt" />
 
             <Button

@@ -16,7 +16,7 @@ import java.io.OutputStream;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static String DB_NAME = "psyho.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 7;
+    private static final int DB_VERSION = 8;
 
     private SQLiteDatabase mDataBase;
     private final Context mContext;

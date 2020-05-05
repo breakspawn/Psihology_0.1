@@ -3,6 +3,7 @@ package com.example.psihology;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,30 +14,33 @@ import com.r0adkll.slidr.model.SlidrInterface;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private Button buttonToClientListForm;
     private Button buttonToRecordListForm;
     private Button buttonToNote;
-
     private SlidrInterface slidr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        slidr = Slidr.attach(this);
+        initButtons();
+    }
 
+    void initButtons()
+    {
         buttonToClientListForm = (Button) findViewById(R.id.watchAnketBt);
         buttonToRecordListForm = (Button) findViewById(R.id.recordListBt);
         buttonToNote = (Button) findViewById(R.id.notifyBt);
 
-        slidr = Slidr.attach(this);
+
 
         buttonToClientListForm.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.example.psihology.ClientListForm");
-                        startActivity(intent);
+                        startIntent("com.example.psihology.ClientListForm");
                     }
                 }
         );
@@ -45,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.example.psihology.RecordListForm");
-                        startActivity(intent);
+                        startIntent("com.example.psihology.RecordListForm");
                     }
                 }
         );
@@ -55,11 +58,16 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.example.psihology.notify");
-                        startActivity(intent);
+                        startIntent("com.example.psihology.notify");
                     }
                 }
         );
+    }
+
+    void startIntent(String action)
+    {
+        Intent intent = new Intent(action);
+        startActivity(intent);
     }
 
 }

@@ -30,19 +30,7 @@ public class notifyActivity extends AppCompatActivity {
     int pos;
 
 
-    void updateNotyList() {
-        posToId = new HashMap<Integer, Integer>();
-        ArrayList<String> notyfies = new ArrayList<String>();
-        keeper = new PsyhoKeeper(notifyActivity.this);
-        notyes = keeper.getAllNotyes();
-        int i = 0;
-        for (Pair<Integer, Noty> c : notyes) {
-            notyfies.add(c.second.text);
-            posToId.put(i++, c.first);
-        }
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activ, notyfies); //назначение массива для тектса
-        notifyList.setAdapter(adapter);
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +42,11 @@ public class notifyActivity extends AppCompatActivity {
         Slidr.attach(this);
 
         updateNotyList();
+        initView();
+    }
 
+    void initView()
+    {
         notifyList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -119,6 +111,19 @@ public class notifyActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.menu, menu);
+    }
+    void updateNotyList() {
+        posToId = new HashMap<Integer, Integer>();
+        ArrayList<String> notyfies = new ArrayList<String>();
+        keeper = new PsyhoKeeper(notifyActivity.this);
+        notyes = keeper.getAllNotyes();
+        int i = 0;
+        for (Pair<Integer, Noty> c : notyes) {
+            notyfies.add(c.second.text);
+            posToId.put(i++, c.first);
+        }
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activ, notyfies); //назначение массива для тектса
+        notifyList.setAdapter(adapter);
     }
 
     @Override

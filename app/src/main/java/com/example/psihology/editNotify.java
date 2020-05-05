@@ -17,42 +17,51 @@ public class editNotify extends AppCompatActivity {
     EditText textNotify;
     Button saveNotifyButton;
     int id = -1;
+    String clientJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_notify);
+        takeTextFromNotify();
+        initButton();
+    }
 
+    void takeTextFromNotify()
+    {Intent intent = getIntent();
+        clientJson = intent.getStringExtra("json");
+        id = intent.getIntExtra("id", -1);
+    }
+
+    void initButton()
+    {
         textNotify = (EditText) findViewById(R.id.editTextNotify);
         saveNotifyButton = (Button) findViewById(R.id.saveNotifyButton);
-
-
-        Intent intent = getIntent();
-        String clientJson = intent.getStringExtra("json");
-        id = intent.getIntExtra("id", -1);
 
         if(clientJson == null) {
             saveNotifyButton.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(textNotify.getText().length() != 0){
                             DataBaseWorker worker = new DataBaseWorker(editNotify.this);
                             if (worker.insert(worker.T_NOTIFY, worker.F_NOTIFY_TEXT, makeNotyFromField().toJson())) {
                                 Toast.makeText(editNotify.this, "Сохранено", Toast.LENGTH_LONG).show();
                                 finish();
                             } else
                                 Toast.makeText(editNotify.this, "Ошибка сохранения", Toast.LENGTH_LONG).show();
+                        } else Toast.makeText(editNotify.this, "Поле не заполнено", Toast.LENGTH_LONG).show();
                         }
                     }
             );
         } else {
             Noty selectedNoty = new Noty(clientJson);
-            // заполнить поля выбранным клиентом
+            //заполняем поле выбранной заметкой
             setTextNotifyField(selectedNoty);
             saveNotifyButton.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DataBaseWorker worker = new DataBaseWorker(editNotify.this); 
+                    DataBaseWorker worker = new DataBaseWorker(editNotify.this);
                     if (id >= 0 && worker.update(worker.T_NOTIFY, worker.F_NOTIFY_TEXT, makeNotyFromField().toJson(), id))
                     {
                         Toast.makeText(editNotify.this, "Сохранено", Toast.LENGTH_LONG).show();
