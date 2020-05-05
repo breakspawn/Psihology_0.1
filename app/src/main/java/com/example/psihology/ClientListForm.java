@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -54,6 +55,7 @@ public class ClientListForm extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listActiv);
         addClientBt = (Button)findViewById(R.id.addClientBt);
         Slidr.attach(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         updateClients();
         initButtons();
     }

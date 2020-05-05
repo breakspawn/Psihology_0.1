@@ -1,6 +1,7 @@
 package com.example.psihology;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Pair;
@@ -32,7 +33,7 @@ public class RecordListForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list_form);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         listMeetings = (ListView) findViewById(R.id.listRecord);
         addMeeting = (Button) findViewById(R.id.addMeting);
         updateMeetingsList();

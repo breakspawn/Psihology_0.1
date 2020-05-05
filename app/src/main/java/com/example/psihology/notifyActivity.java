@@ -3,6 +3,7 @@ package com.example.psihology;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -36,7 +37,7 @@ public class notifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notify);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         addNotifyButton = (Button) findViewById(R.id.addNotifyButton);
         notifyList = (ListView) findViewById(R.id.listnotify);
         Slidr.attach(this);
