@@ -60,32 +60,9 @@ public class MeetingEditForm extends AppCompatActivity {
     Button writeMeetingBt;
     Time t;
     Date d;
-
     Date dateTimer;
 
 
-    Button sms;
-    String SENT_SMS = "SENT_SMS";
-    Intent sent_intent = new Intent(SENT_SMS);
-    PendingIntent sent_pi;
-    Intent intentService;
-
-    int DIALOG_TIME = 1;
-
-    BroadcastReceiver sentReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (getResultCode()) {
-                case Activity
-                        .RESULT_OK:
-                    Toast.makeText(context, "sented", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    Toast.makeText(context, "error sent", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +75,6 @@ public class MeetingEditForm extends AppCompatActivity {
         timeBt = (Button) findViewById(R.id.TimeBt);
         dateBt = (Button) findViewById(R.id.DateBt);
         writeMeetingBt = (Button) findViewById(R.id.writeMeeting);
-
-
-
-
-
-
 
         id = getIntent().getIntExtra("id", -1);
         if (id >= 0) {
@@ -143,6 +114,7 @@ public class MeetingEditForm extends AppCompatActivity {
                     timeText.setText(dt);
                 }
             };
+
             final TimePickerDialog tpd = new TimePickerDialog(this, myCallBack, 12, 0, true);
 
             timeBt.setOnClickListener(
@@ -154,17 +126,7 @@ public class MeetingEditForm extends AppCompatActivity {
                     }
             );
 
- //отправка сообщения===========================================================================================
-
-
-
-            sent_pi = PendingIntent.getBroadcast(this, 0, sent_intent, 0);
-            sms = (Button) findViewById(R.id.sentsms);
-
-
-
-
-            writeMeetingBt.setOnClickListener(
+             writeMeetingBt.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -174,7 +136,6 @@ public class MeetingEditForm extends AppCompatActivity {
                                 values.put(worker.F_MEETING_CLIENT_ID, id);
                                 String dt = dateText.getText().toString() + " " + timeText.getText().toString();
                                 values.put(worker.F_DATA_MEETING, dt);
-
                                 if (worker.insert(worker.T_MEETINGS, values)) {
                                     smsService();
                                     Toast.makeText(MeetingEditForm.this, "Запись добавлена", Toast.LENGTH_LONG).show();
@@ -191,19 +152,25 @@ public class MeetingEditForm extends AppCompatActivity {
         } else finish();
     }
 
+    // метод для запуска сервиса отправки смс за 3 часа до события
+    // чтобы отправлять в то премя которое задал нужно к TD прибавить (3*3600*1000)
     void smsService()
     {
         final Intent intent = new Intent(this, SMSService.class);
-        final String message = "Здраствуйте " + client.name + " у вас сегодня запись на " + (String) t.toString().substring(0, t.toString().length() - 3);
+        final String message = "Здраствуйте " + client.name + " у вас сегодня запись на "
+                + (String) t.toString().substring(0, t.toString().length() - 3);
 
+        // устанавлиаем дату и время
         Date date = new Date(dateTimer.getTime());
         Time time = new Time(t.getTime());
         date.setTime(date.getTime() + time.getTime());
-        long TD = date.getTime();
-        Date a = new Date(TD);
 
-        startService(intent.putExtra("date", TD)
-                .putExtra("text", message).putExtra("number", client.phone));
+        // перевожу дату в лонг для передачи в интент
+        long TD = date.getTime();
+        // запуск сервиса интент
+        startService( intent.putExtra("date", TD)
+                            .putExtra("text", message)
+                            .putExtra("number", client.phone));
     }
 
 }
