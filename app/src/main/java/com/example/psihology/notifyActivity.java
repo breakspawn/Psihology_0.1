@@ -30,9 +30,6 @@ public class notifyActivity extends AppCompatActivity {
     PsyhoKeeper keeper;
     int pos;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,8 +126,7 @@ public class notifyActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        super.onResume();
         updateNotyList();
-
+        super.onResume();
     }
 }

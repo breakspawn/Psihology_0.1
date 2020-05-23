@@ -27,12 +27,18 @@ public class editNotify extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         takeTextFromNotify();
         initButton();
+
     }
 
     void takeTextFromNotify()
     {Intent intent = getIntent();
         clientJson = intent.getStringExtra("json");
         id = intent.getIntExtra("id", -1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     void initButton()

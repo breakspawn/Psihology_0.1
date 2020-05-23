@@ -87,6 +87,14 @@
             android:layout_height="wrap_content"
             android:text="Записать" />
 
+        <Button
+            android:id="@+id/sentsms"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sms"
+            android:textColor="#000000" />
+
 
     </LinearLayout>
 

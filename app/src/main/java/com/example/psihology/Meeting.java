@@ -11,6 +11,10 @@ public class Meeting {
         this(t_id, d.toString() + " " + t.toString());
     }
 
+    public Meeting()
+    {
+    }
+
     public Meeting(int t_id, String t_dt)
     {
         dt = t_dt;
@@ -43,5 +47,6 @@ public class Meeting {
     {
         return PsyhoKeeper.getClientById(id_client).name + "\n" + dt;
     }
+    public String getPhoneNumber() {return PsyhoKeeper.getClientById(id_client).phone;}
 
 }

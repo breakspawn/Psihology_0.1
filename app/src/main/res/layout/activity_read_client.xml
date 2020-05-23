@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="5dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#AB3C3A3A"
             tools:ignore="MissingConstraints" />
 
     </LinearLayout>
